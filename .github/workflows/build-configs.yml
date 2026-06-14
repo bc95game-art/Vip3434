@@ -16,11 +16,11 @@ jobs:
           python-version: '3.11'
       - name: Install dependencies
         run: pip install -r scripts/requirements.txt
-      - name: Run collector script
+      - name: Run collector
         run: python scripts/collector.py
-      - name: Run generator script
+      - name: Run generator
         run: python scripts/generator.py
-      - name: Commit and push changes
+      - name: Commit and push
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
