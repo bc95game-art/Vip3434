@@ -1,1 +1,23 @@
-
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پنل اشتراک V2Ray</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 پنل تولید لینک اشتراک V2Ray</h1>
+        <p>لینک دائمی اشتراک شما (کپی کنید و در کلاینت V2Ray خود وارد کنید):</p>
+        <div class="url-box">
+            <input type="text" id="sub-url" value="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/configs/subscription.txt" readonly>
+            <button onclick="copyToClipboard()">📋 کپی لینک</button>
+        </div>
+        <p class="note">🔄 این لینک هر ۴ ساعت یکبار به‌طور خودکار به‌روز می‌شود.</p>
+        <p class="note">✨ کانفیگ‌ها از منابع معتبر جمع‌آوری و تست می‌شوند.</p>
+        <div id="status">✅ سیستم فعال است - لینک شما دائمی می‌باشد.</div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
