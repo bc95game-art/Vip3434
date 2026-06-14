@@ -5,6 +5,10 @@ INPUT_FILE = "configs/all_configs.txt"
 OUTPUT_SUBSCRIPTION = "configs/subscription.txt"
 PUBLIC_INDEX = "public/index.html"
 
+# 👇 مقادیر واقعی خود را اینجا وارد کنید
+GITHUB_USERNAME = "bc95game-art"
+GITHUB_REPO = "Vip3434"
+
 def generate_subscription():
     if not os.path.exists(INPUT_FILE):
         return False
@@ -18,8 +22,8 @@ def generate_subscription():
     return True
 
 def update_html():
-    repo = os.environ.get('GITHUB_REPOSITORY', 'YOUR_USERNAME/YOUR_REPO')
-    subscription_url = f"https://raw.githubusercontent.com/{repo}/main/configs/subscription.txt"
+    # ساخت لینک صحیح با استفاده از متغیرهای واقعی
+    subscription_url = f"https://raw.githubusercontent.com/{GITHUB_USERNAME}/{GITHUB_REPO}/main/configs/subscription.txt"
     html_content = f"""<!DOCTYPE html>
 <html lang="fa">
 <head>
