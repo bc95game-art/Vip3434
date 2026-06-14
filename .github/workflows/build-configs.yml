@@ -1,1 +1,29 @@
+name: Auto Build Configs
 
+on:
+  schedule:
+    - cron: '0 */4 * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+      - name: Run collector script
+        run: python scripts/collector.py
+      - name: Run generator script
+        run: python scripts/generator.py
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add configs/ public/
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto update configs [skip ci]"
+          git push
