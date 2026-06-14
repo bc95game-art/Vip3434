@@ -1,16 +1,10 @@
 function copyToClipboard() {
-    const urlInput = document.getElementById('sub-url');
-    urlInput.select();
-    urlInput.setSelectionRange(0, 99999);
-    try {
-        navigator.clipboard.writeText(urlInput.value);
-        const button = document.querySelector('.url-box button');
-        const originalText = button.textContent;
-        button.textContent = '✅ کپی شد!';
-        setTimeout(() => {
-            button.textContent = originalText;
-        }, 2000);
-    } catch (err) {
-        alert('خطا در کپی کردن لینک');
-    }
+    let input = document.getElementById('sub-url');
+    input.select();
+    input.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(input.value);
+    let btn = event.target;
+    let oldText = btn.innerText;
+    btn.innerText = '✅ کپی شد!';
+    setTimeout(() => btn.innerText = oldText, 2000);
 }
