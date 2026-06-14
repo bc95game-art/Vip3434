@@ -2,28 +2,28 @@ import os
 import requests
 import base64
 import re
-from datetime import datetime
 
 SOURCE_URLS = [
-    "https://sub22.aboshahr.co.uk:2087/sub22/6n7pqitdmuuconys"  # لینک خودت رو اینجا عوض کن
+    "https://sub22.aboshahr.co.uk:2087/sub22/6n7pqitdmuuconys"   # لینک خودت
 ]
+
 OUTPUT_DIR = "configs"
 ALL_CONFIGS_FILE = os.path.join(OUTPUT_DIR, "all_configs.txt")
 
-def fetch_configs_from_url(url):
+def fetch_configs(url):
     try:
-        response = requests.get(url, timeout=15)
-        if response.status_code != 200:
+        r = requests.get(url, timeout=15)
+        if r.status_code != 200:
             return []
-        content = response.text
-        if re.match(r'^[A-Za-z0-9+/=]+$', content.strip()):
+        text = r.text
+        # اگر base64 بود decode کن
+        if re.match(r'^[A-Za-z0-9+/=]+$', text.strip()):
             try:
-                content = base64.b64decode(content).decode('utf-8')
+                text = base64.b64decode(text).decode('utf-8')
             except:
                 pass
-        lines = content.splitlines()
-        configs = [line.strip() for line in lines if line.strip() and not line.startswith('#')]
-        return configs
+        lines = [line.strip() for line in text.splitlines() if line.strip() and not line.startswith('#')]
+        return lines
     except Exception as e:
         print(f"Error: {e}")
         return []
@@ -33,12 +33,13 @@ def main():
     all_configs = []
     for url in SOURCE_URLS:
         print(f"Fetching {url}")
-        configs = fetch_configs_from_url(url)
-        all_configs.extend(configs)
-    unique_configs = list(dict.fromkeys(all_configs))
+        cfgs = fetch_configs(url)
+        all_configs.extend(cfgs)
+        print(f"Found {len(cfgs)} configs")
+    unique = list(dict.fromkeys(all_configs))
     with open(ALL_CONFIGS_FILE, 'w', encoding='utf-8') as f:
-        f.write('\n'.join(unique_configs))
-    print(f"Saved {len(unique_configs)} configs")
+        f.write('\n'.join(unique))
+    print(f"Saved {len(unique)} configs to {ALL_CONFIGS_FILE}")
 
 if __name__ == "__main__":
     main()
